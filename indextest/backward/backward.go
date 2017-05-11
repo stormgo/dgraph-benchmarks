@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	filename = "/home/jchiu/dgraphtest/goldendata"
+	filename = "/tmp55/goldendata.rdf"
 )
 
 var (
