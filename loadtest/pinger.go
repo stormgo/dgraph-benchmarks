@@ -17,19 +17,19 @@ import (
 	"sync"
 	"time"
 
-	"github.com/dgraph-io/dgraph/x"
+	//"github.com/dgraph-io/dgraph/x"
 )
 
 var (
 	numUser    = flag.Int("numuser", 1, "number of users hitting simultaneously")
 	numReq     = flag.Int("numreq", 10, "number of request per user")
-	serverAddr = flag.String("ip", ":8081", "IP addr of server")
+	serverAddr = flag.String("ip", ":8080", "IP addr of server")
 	avg        chan float64
 	jsonP      chan float64
 	serverP    chan float64
 	parsingP   chan float64
 	totalP     chan float64
-	glog       = x.Log("Pinger")
+	//glog       = x.Log("Pinger")
 )
 
 func runUser(wg *sync.WaitGroup) {
@@ -58,7 +58,7 @@ func runUser(wg *sync.WaitGroup) {
 		resp, err := client.Do(r)
 		t1 := time.Now()
 		if err != nil {
-			glog.WithField("Err", resp.Status).Fatalf("Error in query")
+			log.Fatalf("Error in query %+v", err)
 		} else {
 			body, err := ioutil.ReadAll(resp.Body)
 			if err != nil {
@@ -67,7 +67,7 @@ func runUser(wg *sync.WaitGroup) {
 			resp.Body.Close()
 			err = json.Unmarshal(body, &dat)
 			if err != nil {
-				glog.Fatalf("Error in reply")
+				log.Fatalf("Error in reply %+v", err)
 			}
 			//fmt.Println(dat["server_latency"])
 			ti += t1.Sub(t0)
