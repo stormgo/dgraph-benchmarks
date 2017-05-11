@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	dgraph = flag.String("d", "http://127.0.0.1:8236/query", "Dgraph server address")
+	dgraph = flag.String("d", "http://127.0.0.1:8080/query", "Dgraph server address")
 )
 
 func testHelper(t *testing.T, prefix string) {
